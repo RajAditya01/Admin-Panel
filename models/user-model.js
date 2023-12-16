@@ -25,4 +25,6 @@ const userSchema = new mongoose.Schema({
 });
 
 // define the model or the collection name
-export const User = new mongoose.model("USER", userSchema);
+const User = mongoose.model("USER", userSchema);
+
+module.exports = User;  // Use module.exports instead of export
