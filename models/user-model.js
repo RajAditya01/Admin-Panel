@@ -44,6 +44,9 @@ userSchema.pre("save", async function () {
     }
 });
 
+// ? Why not to use the arrow functions when creating an instance methods in mongoose.
+// The key difference is that the function is defined as a regular function with the **`function`** keyword, not as an arrow function. This is important because when defining instance methods in Mongoose, you should use regular functions (not arrow functions) to ensure that **`this`** refers to the instance of the document being operated on.
+
 //? Generate JSON Web Token
 userSchema.methods.generateToken = async function () {
     console.log("I am token");

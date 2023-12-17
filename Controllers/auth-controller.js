@@ -36,10 +36,15 @@ const register = async (req, res) => {
     const userCreated = await User.create({ username, email, phone, password });
 
     // res.status(201).json({ message: "User registered successfully" });
-    res.status(201).json({ msg: userCreated });
+    res.status(201).json({
+      msg: "Registration Successful",
+      token: await userCreated.generateToken(),
+      userId: userCreated._id.toString(),
+    });
   } catch (error) {
     res.status(500).json({ message: "Internal server error" });
   }
 };
+
 
 module.exports = { home, register };
