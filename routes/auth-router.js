@@ -4,5 +4,5 @@ const authControllers = require("../Controllers/auth-controller"); // Adjusted p
 
 router.route("/").get(authControllers.home);
 router.route("/register").get(authControllers.register);
-
+router.route("/login").get(authControllers.login);
 module.exports = router;
