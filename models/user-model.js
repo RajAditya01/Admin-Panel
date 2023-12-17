@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 // Define the User schema
 const userSchema = new mongoose.Schema({
@@ -43,11 +44,29 @@ userSchema.pre("save", async function () {
     }
 });
 
+//? Generate JSON Web Token
+userSchema.methods.generateToken = async function () {
+    console.log("I am token");
+    try {
+        return jwt.sign(
+            {
+                userId: this._id.toString(),
+                email: this.email,
+                isAdmin: this.isAdmin,
+            },
+            process.env.JWT_SECRET_KEY,
+            {
+                expiresIn: "30d",
+            }
+        );
+    } catch (error) {
+        console.error("Token Error: ", error);
+    }
+};
+
 // define the model or the collection name
 const User = mongoose.model("USER", userSchema);
-module.exports = User;  // Use module.exports instead of export
-
-
+module.exports = User; // Use module.exports instead of export
 
 // **What is JWT?**
 
@@ -58,8 +77,6 @@ module.exports = User;  // Use module.exports instead of export
 // Authentication: Verifying the identity of a user or client.
 
 // Authorization: Determining what actions a user or client is allowed to perform.
-
-
 
 // **Components of a JWT:**
 
