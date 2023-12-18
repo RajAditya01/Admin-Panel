@@ -15,3 +15,11 @@ connectDb().then(() => {
     console.log(`server is running at port: ${PORT}`);
   });
 });
+
+// app.all("*", (req, res) => {
+//   res.send('Route Not Defined')
+// })
+
+// app.listen(PORT, () => {
+//   console.log('Server Up')
+// })
