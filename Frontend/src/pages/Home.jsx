@@ -1,5 +1,4 @@
-import { Analytics } from "../components/Analytics";
-
+//import { Analytics } from "../components/Analytics";
 export const Home = () => {
   return (
     <>
@@ -8,7 +7,7 @@ export const Home = () => {
           <div className="container grid grid-two-cols">
             <div className="hero-content">
               <p>We are the World Best IT Company</p>
-              <h1>Welcome to Thapa Technical</h1>
+              <h1>Welcome to Raj Technical</h1>
               <p>
                 Are you ready to take your business to the next level with
                 cutting-edge IT solutions? Look no further! At Thapa Technical,
@@ -19,7 +18,7 @@ export const Home = () => {
                 <a href="/contact">
                   <button className="btn">connect now</button>
                 </a>
-                <a href="/services">
+                <a href="/service">
                   <button className="btn secondary-btn">learn more</button>
                 </a>
               </div>
@@ -39,7 +38,26 @@ export const Home = () => {
       </main>
 
       {/* 2nd section  */}
-      <Analytics />
+      <section className="section-analytics">
+  <div className="container grid grid-four-cols">
+    <div className="div1">
+      <h2>50+</h2>
+      <p>registered companies</p>
+    </div>
+    <div className="div1">
+      <h2>100,00+</h2>
+      <p>Happy clients</p>
+    </div>
+    <div className="div1">
+      <h2>500+</h2>
+      <p>well-known Developers</p>
+    </div>
+    <div className="div1">
+      <h2>24/7</h2>
+      <p>service</p>
+    </div>
+  </div>
+</section>
 
       {/* 3rd section  */}
       <section className="section-hero">
@@ -67,7 +85,7 @@ export const Home = () => {
               <a href="/contact">
                 <button className="btn">connect now</button>
               </a>
-              <a href="/services">
+              <a href="/service">
                 <button className="btn secondary-btn">learn more</button>
               </a>
             </div>
@@ -75,5 +93,6 @@ export const Home = () => {
         </div>
       </section>
     </>
+    
   );
 };

@@ -3,13 +3,13 @@ import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
   const [user, setUser] = useState({
-    username: "",
+    email: "",
     password: "",
-  });     
+  });
 
   const navigate = useNavigate();
 
-  // let handle the input field value
+  // Handle the input field value
   const handleInput = (e) => {
     let name = e.target.name;
     let value = e.target.value;
@@ -19,7 +19,17 @@ export const Login = () => {
       [name]: value,
     });
   };
- 
+
+  // Handle form submission
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Perform login logic here
+    // For example, you can send a request to your server to verify the credentials
+
+    // After successful login, navigate to the desired page
+    navigate("/dashboard");
+  };
 
   return (
     <>
@@ -41,29 +51,29 @@ export const Login = () => {
                 <br />
                 <form onSubmit={handleSubmit}>
                   <div>
-                    <label htmlFor="email">email</label>
+                    <label htmlFor="email">Email</label>
                     <input
                       type="text"
                       name="email"
                       value={user.email}
                       onChange={handleInput}
-                      placeholder="email"
+                      placeholder="Email"
                     />
                   </div>
 
                   <div>
-                    <label htmlFor="password">password</label>
+                    <label htmlFor="password">Password</label>
                     <input
                       type="password"
                       name="password"
                       value={user.password}
                       onChange={handleInput}
-                      placeholder="password"
+                      placeholder="Password"
                     />
                   </div>
                   <br />
                   <button type="submit" className="btn btn-submit">
-                    Register Now
+                    Login
                   </button>
                 </form>
               </div>
