@@ -5,7 +5,7 @@ export const Login = () => {
   const [user, setUser] = useState({
     username: "",
     password: "",
-  });
+  });     
 
   const navigate = useNavigate();
 
