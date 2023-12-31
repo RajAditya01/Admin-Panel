@@ -37,10 +37,7 @@ export const Login = () => {
       
       console.log("Response status:", response.status);
       console.log("Response body:", await response.text());
-      
-      // ... rest of the code ...
-      
-  
+ 
       console.log("login form", response);
   
       if (response.ok) {
@@ -48,7 +45,7 @@ export const Login = () => {
         console.log("Login Successful:", data);
         alert("Login Successful!");
         setUser({ email: "", password: "" });
-        navigate("/dashboard");
+        navigate("/");
       } else {
         const errorData = await response.json().catch(() => ({ message: 'Unknown error' }));
         console.log("Invalid Credentials:", errorData);
