@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+const URL = "http://localhost:5000/api/auth/login";
+
 export const Login = () => {
   const [user, setUser] = useState({
-    email: "",
+    email: "",  
     password: "",
   });
 
@@ -21,15 +23,43 @@ export const Login = () => {
   };
 
   // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Perform login logic here
-    // For example, you can send a request to your server to verify the credentials
-
-    // After successful login, navigate to the desired page
-    navigate("/dashboard");
+  
+    try {
+      const response = await fetch(URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
+      
+      console.log("Response status:", response.status);
+      console.log("Response body:", await response.text());
+      
+      // ... rest of the code ...
+      
+  
+      console.log("login form", response);
+  
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Login Successful:", data);
+        alert("Login Successful!");
+        setUser({ email: "", password: "" });
+        navigate("/dashboard");
+      } else {
+        const errorData = await response.json().catch(() => ({ message: 'Unknown error' }));
+        console.log("Invalid Credentials:", errorData);
+        alert(`Invalid Credentials: ${errorData.message}`);
+      }
+    } catch (error) {
+      console.error("An error occurred during login:", error);
+      alert(error);
+    }
   };
+  
 
   return (
     <>

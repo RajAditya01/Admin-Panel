@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const Register = () => {
   const [user, setUser] = useState({
@@ -7,6 +8,8 @@ export const Register = () => {
     phone: "",
     password: "",
   });
+  
+  const navigate= useNavigate();
 
   const handleInput = (e) => {
     console.log(e);
