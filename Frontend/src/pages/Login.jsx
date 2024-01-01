@@ -28,29 +28,33 @@ export const Login = () => {
   
     try {
       const response = await fetch(URL, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(user),
       });
       
-      console.log("Response status:", response.status);
-      console.log("Response body:", await response.text());
- 
-      console.log("login form", response);
-  
+      console.log('Response status:', response.status);
+      
+      // Read the response body once
+      const responseBody = await response.text();
+      console.log('Response body:', responseBody);
+      
+      console.log('login form Response', response);
+      
       if (response.ok) {
-        const data = await response.json();
-        console.log("Login Successful:", data);
-        alert("Login Successful!");
-        setUser({ email: "", password: "" });
-        navigate("/");
+        const data = JSON.parse(responseBody);
+        console.log('Login Successful:', data);
+        alert('Login Successful!');
+        setUser({ email: '', password: '' });
+        navigate('/');
       } else {
-        const errorData = await response.json().catch(() => ({ message: 'Unknown error' }));
-        console.log("Invalid Credentials:", errorData);
-        alert(`Invalid Credentials: ${errorData.message}`);
+        console.log('Internal Server Error:', response); // Log the entire response object
+        alert(`Internal Server Error: ${responseBody}`);
       }
+      
+      
     } catch (error) {
       console.error("An error occurred during login:", error);
       alert(error);
