@@ -1,18 +1,18 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {useAuth} from "../store/auth";
+import { useAuth } from "../store/auth";
 
 const URL = "http://localhost:5000/api/auth/login";
 
 export const Login = () => {
   const [user, setUser] = useState({
-    email: "",  
+    email: "",
     password: "",
   });
 
   const navigate = useNavigate();
-  const storeTokenInLS=useAuth();
-  
+  const { storeTokenInLS } = useAuth(); // Destructure the function from the context value
+
   // Handle the input field value
   const handleInput = (e) => {
     let name = e.target.name;
@@ -27,47 +27,46 @@ export const Login = () => {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
       const response = await fetch(URL, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(user),
       });
-      
-      console.log('Response status:', response.status);
-      
-      // Read the response body once
-      const responseBody = await response.text();
-      console.log('Response body:', responseBody);
-      
-      console.log('login form Response', response);
-      
-      if (response.ok) {
-        const data = JSON.parse(responseBody);
-        console.log('Login Successful:', data);
 
-        const res_data= await response.json();
-        //store the token in localhost
-        storeTokenInLS(res_data.token);
-        
-        alert('Login Successful!');
-        setUser({ email: '', password: '' });
-        navigate('/');
+      console.log("Response status:", response.status);
+
+      if (response.ok) {
+        const data = await response.json();
+        if (data.token) {
+          // Store the token in localStorage
+          storeTokenInLS(data.token);
+
+          console.log("Login Successful:", data);
+          alert("Login Successful!");
+
+          // Clear user input
+          setUser({ email: "", password: "" });
+
+          // Navigate to the desired page
+          navigate("/");
+        } else {
+          console.error("Token not found in the response data");
+          alert("Unexpected response format");
+        }
       } else {
-        console.log('Internal Server Error:', response); // Log the entire response object
+        console.log("Internal Server Error:", response);
+        const responseBody = await response.text();
         alert(`Internal Server Error: ${responseBody}`);
       }
-      
-      
     } catch (error) {
       console.error("An error occurred during login:", error);
       alert(error);
     }
   };
-  
 
   return (
     <>
