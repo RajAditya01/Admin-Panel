@@ -1,6 +1,7 @@
+// Register.jsx
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {useAuth} from "../store/auth";
+import { useAuth } from "../store/auth";
 
 export const Register = () => {
   const [user, setUser] = useState({
@@ -9,12 +10,11 @@ export const Register = () => {
     phone: "",
     password: "",
   });
-  
-  const navigate= useNavigate();
-  const storeTokenInLS=useAuth();
+
+  const navigate = useNavigate();
+  const { storeTokenInLS } = useAuth();
 
   const handleInput = (e) => {
-    console.log(e);
     let name = e.target.name;
     let value = e.target.value;
 
@@ -27,7 +27,6 @@ export const Register = () => {
   // handle form on submit
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(user);
 
     try {
       const response = await fetch("http://localhost:5000/api/auth/register", {
@@ -37,29 +36,28 @@ export const Register = () => {
         },
         body: JSON.stringify(user),
       });
-      console.log("response data : ", response);
 
       if (response.ok) {
-        const res_data= await response.json();
-        console.log("res from server", res_data);
-        
-        //store the token in localhost
-        storeTokenInLS(res_data.token);
-        
-        alert("registration successful");
+        const responseData = await response.json();
+        // Store the token in localStorage
+        storeTokenInLS(responseData.token);
+
+        alert("Registration successful");
         setUser({ username: "", email: "", phone: "", password: "" });
         navigate("/login");
-        // console.log(responseData);
       } else {
-        console.log("error inside response ", "error");
+        console.log("Error inside response");
+        Alert("Error inside response")
       }
     } catch (error) {
+      Alert(error);
       console.error("Error", error);
     }
   };
 
   return (
     <>
+      {/* ... rest of your component */}
       <section>
         <main>
           <div className="section-registration">
