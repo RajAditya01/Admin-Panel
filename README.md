@@ -12,4 +12,3 @@ Settings: Configure application settings and customize the admin panel based on 
 ##### Express.js: A web application framework for Node.js, providing robust APIs. 
 ##### React.js: A JavaScript library for building user interfaces. 
 ##### Node.js: A runtime environment for executing JavaScript on the server side. 
-
